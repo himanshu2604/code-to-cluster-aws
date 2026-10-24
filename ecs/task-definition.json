@@ -1,0 +1,29 @@
+{
+  "family": "code-to-cluster",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/code-to-cluster-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "code-to-cluster",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/code-to-cluster:<FIRST_TAG>",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/code-to-cluster",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

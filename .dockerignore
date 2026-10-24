@@ -1,0 +1,6 @@
+.git
+.gitignore
+ecs/
+README.md
+buildspec.yml
+.DS_Store
