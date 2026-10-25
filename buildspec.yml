@@ -1,15 +1,9 @@
 version: 0.2
 
-# Set these as CodeBuild project environment variables (plaintext):
-#   AWS_ACCOUNT_ID   your 12 digit account id
-#   AWS_REGION       for example ap-south-1
-#   ECR_REPO         code-to-cluster
-#   CONTAINER_NAME   code-to-cluster   (must match the container name in the task definition)
-
 env:
   variables:
-    TRIVY_VERSION: "0.76.0" # check the latest release and pin it
-    GITLEAKS_VERSION: "8.30.1" # check the latest release and pin it
+    TRIVY_VERSION: "0.76.0"
+    GITLEAKS_VERSION: "8.30.1"
 
 phases:
   install:
@@ -35,8 +29,6 @@ phases:
 
   build:
     commands:
-      # Order matters: build, smoke test, scan, then push.
-      # A failure in any step stops the phase before the push.
       - docker build -t $REPO_URI:$IMAGE_TAG .
       - echo "Smoke test"
       - docker run -d --name smoke -p 8080:8080 $REPO_URI:$IMAGE_TAG
