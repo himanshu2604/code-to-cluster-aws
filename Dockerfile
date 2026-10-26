@@ -1,3 +1,4 @@
+# FROM nginxinc/nginx-unprivileged:alpine3.24-perl
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 
 USER root
